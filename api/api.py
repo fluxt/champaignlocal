@@ -10,3 +10,7 @@ def hello_world():
 @app.route('/api/time')
 def get_current_time():
     return {'time': time.time()}
+
+@app.errorhandler(404)
+def api_not_found(e):
+    return "This is not the API you are looking for..."
