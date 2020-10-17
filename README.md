@@ -40,6 +40,8 @@ In another terminal, start front-end development server
 yarn start
 ```
 
+The app now runs locally!
+
 Flask API resides in localhost:5000
 
 React resides in localhost:3000
