@@ -249,3 +249,8 @@ dmypy.json
 
 venv
 __pycache__
+
+
+
+# miscellaneous
+.DS_Store
