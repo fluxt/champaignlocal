@@ -28,17 +28,21 @@ npm install
 
 3. Run the Combined Project
 
-Locally host the front-end
+Start the Flask API
+
+```sh
+yarn start-api
+```
+
+In another terminal, start front-end development server
 
 ```sh
 yarn start
 ```
 
-In another terminal, start the Flask API
+Flask API resides in localhost:5000
 
-```sh
-yarn start-api
-```
+React resides in localhost:3000
 
 ## Credits
 
