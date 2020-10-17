@@ -1,4 +1,4 @@
-# CS 411 Group 14 - ChampaignLocal
+# ChampaignLocal
 
 This is a website that provides customers a locally owned business alternative to products/stores that they are looking to purchase.
 
