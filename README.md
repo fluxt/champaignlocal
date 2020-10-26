@@ -23,28 +23,44 @@ cd ..
 2. Install React Dependencies
 
 ```sh
-npm install
+yarn install
 ```
 
-3. Run the Combined Project
-
-Start the Flask API
+3. Start Flask
 
 ```sh
-yarn start-api
+yarn start-flask
 ```
 
-In another terminal, start front-end development server
+Flask is located at http://localhost:5000 (try http://localhost:5000/api/time)
+
+4. Start/Build React
+
+Option 1: Use react-scripts to debug React (browser debugging)
 
 ```sh
-yarn start
+yarn start-react
 ```
 
-The app now runs locally!
+React is located at http://localhost:3000
 
-Flask API resides in localhost:5000
+All api requests are proxied to http://localhost:5000
 
-React resides in localhost:3000
+Option 2: Build React to be served by Flask (no browser debugging)
+
+```sh
+yarn build
+```
+
+Flask is already configured to serve static files at /build.
+
+App is located at http://localhost:5000
+
+To reset,
+
+```sh
+yarn clean
+```
 
 ## Credits
 
