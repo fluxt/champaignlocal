@@ -20,7 +20,7 @@ def get_current_time():
 @application.route('/api/stores/get-all')
 def get_all_stores():
     all_stores = db_store.query_all_stores(config)
-    return {'data': all_stores}
+    return {'ok': True, 'stores': all_stores}
 
 @application.errorhandler(404)
 def api_not_found(e):
