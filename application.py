@@ -15,7 +15,7 @@ def index():
 
 @application.route('/api/time')
 def get_current_time():
-    return {'time': datetime.now()}
+    return {'ok': True, 'time': datetime.now()}
 
 @application.route('/api/stores/get-all')
 def get_all_stores():
