@@ -9,6 +9,16 @@ Prerequisites:
 * python (version 3.8.x) & pip
 * node (version 12) & npm
 
+0. Edit and rename config.json
+
+Set up the configuration file for a local or remote SQL database
+
+After the edit, rename config.json.sample to config.json
+
+```sh
+mv config.json.sample config.json
+```
+
 1. Create virtualenv and install dependencies for Flask API
 
 ```sh
