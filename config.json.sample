@@ -1,0 +1,6 @@
+{
+    "sqlhost": "subdomain.host.com",
+    "sqluser": "admin",
+    "sqlpassword": "themeaningoflife",
+    "sqldbname": "foo"
+}
