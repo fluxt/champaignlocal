@@ -25,7 +25,7 @@ def api_stores_all():
 @application.route('/api/stores/name-search', methods=['POST'])
 def api_stores_name_search():
     payload = request.get_json()
-    searched_stores = db_stores.search_stores(config, payload.get('keyword'])
+    searched_stores = db_stores.search_stores(config, payload.get('keyword'))
     return {'ok': True, 'stores': searched_stores}
 
 @application.route('/api/stores/create', methods=['POST'])
@@ -78,7 +78,8 @@ response = await fetch("/api/stores/create", {
         location: "1 Infinite Loop",
         hours: "24/7",
         owner: "Steve Jobs",
-        ratings: 5.0
+        ratings: 5.0,
+        covid_restrictions: "OPEN"
     })
 });
 response = await response.json();

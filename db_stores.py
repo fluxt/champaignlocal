@@ -1,17 +1,24 @@
 import pymysql
 
-def all_stores(config):
+def get_connection(config):
     connection = pymysql.connect(
         host=config['sqlhost'],
         user=config['sqluser'],
         password=config['sqlpassword'],
         db=config['sqldbname']
     )
-    
-    cursor = connection.cursor()
-    query = "SELECT * FROM Stores"
-    cursor.execute(query)
-    result = cursor.fetchall()
+    return connection
+
+def all_stores(config):
+    connection = get_connection(config)
+    try:
+        cursor = connection.cursor()
+        query = "SELECT * FROM Stores"
+        cursor.execute(query)
+        result = cursor.fetchall()
+    finally:
+        connection.close()
+
     result = list(map(lambda store: {
         "id": store[0],
         "name": store[1],
@@ -24,20 +31,19 @@ def all_stores(config):
     return result
 
 def search_stores(config, keyword):
-    connection = pymysql.connect(
-        host=config['sqlhost'],
-        user=config['sqluser'],
-        password=config['sqlpassword'],
-        db=config['sqldbname']
-    )
-    
-    cursor = connection.cursor()
-    query = """SELECT *
-               FROM Stores
-               WHERE Stores.Store_Name LIKE %s
-            """
-    cursor.execute(query, f"%{keyword}%")
-    result = cursor.fetchall()
+    connection = get_connection(config)
+    try:
+        cursor = connection.cursor()
+        query = """
+                SELECT *
+                FROM Stores
+                WHERE Stores.Store_Name LIKE %s
+                """
+        cursor.execute(query, f"%{keyword}%")
+        result = cursor.fetchall()
+    finally:
+        connection.close()
+
     result = list(map(lambda store: {
         "id": store[0],
         "name": store[1],
@@ -50,40 +56,34 @@ def search_stores(config, keyword):
     return result
 
 def create_stores(config, name, location, hours, owner, ratings, covid_restictions):
-    connection = pymysql.connect(
-        host=config['sqlhost'],
-        user=config['sqluser'],
-        password=config['sqlpassword'],
-        db=config['sqldbname']
-    )
-    
-    cursor = connection.cursor()
-    query = """
-      INSERT INTO Stores(
-          Store_Name, Store_Location, Opening_Hours,
-          Store_Owner, Store_Ratings, Covid_Restrictions
-      ) VALUES (%s, %s, %s, %s, %s, %s)
-            """
-    cursor.execute(query, (name, location, hours, owner, ratings, covid_restictions))
-    connection.commit()
+    connection = get_connection(config)
+    try:
+        cursor = connection.cursor()
+        query = """
+                INSERT INTO Stores(
+                    Store_Name, Store_Location, Opening_Hours,
+                    Store_Owner, Store_Ratings, Covid_Restrictions
+                ) VALUES (%s, %s, %s, %s, %s, %s)
+                """
+        cursor.execute(query, (name, location, hours, owner, ratings, covid_restictions))
+        connection.commit()
+    finally:
+        connection.close()
 
 # def update_stores(config, id, name, location, hours, owner, ratings, covid_restictions):
-#     connection = pymysql.connect(
-#         host=config['sqlhost'],
-#         user=config['sqluser'],
-#         password=config['sqlpassword'],
-#         db=config['sqldbname']
-#     )
-    
-#     cursor = connection.cursor()
-#     query = """
-#       INSERT INTO Stores(
-#           Store_Name, Store_Location, Opening_Hours,
-#           Store_Owner, Store_Ratings, Covid_Restrictions
-#       ) VALUES (%s, %s, %s, %s, %s, %s)
-#             """
-#     cursor.execute(query, (name, location, hours, owner, ratings, covid_restictions))
-#     connection.commit()
+#     connection = get_connection(config)
+#     try:
+#         cursor = connection.cursor()
+#         query = """
+#                 INSERT INTO Stores(
+#                     Store_Name, Store_Location, Opening_Hours,
+#                     Store_Owner, Store_Ratings, Covid_Restrictions
+#                 ) VALUES (%s, %s, %s, %s, %s, %s)
+#                 """
+#         cursor.execute(query, (name, location, hours, owner, ratings, covid_restictions))
+#         connection.commit()
+#     finally:
+#         connection.close()
 
 # import json
 # with open('config.json') as f:
