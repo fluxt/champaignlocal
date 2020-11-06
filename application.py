@@ -19,17 +19,20 @@ def api_time():
 
 @application.route('/api/stores/all', methods=['GET'])
 def api_stores_all():
-    all_stores = db_stores.query_all_stores(config)
+    all_stores = db_stores.all_stores(config)
     return {'ok': True, 'stores': all_stores}
 
 @application.route('/api/stores/name-search', methods=['POST'])
 def api_stores_name_search():
-    query_json = request.get_json()
-    searched_stores = db_stores.query_search_stores(config, query_json['keyword'])
+    payload = request.get_json()
+    searched_stores = db_stores.search_stores(config, payload['keyword'])
     return {'ok': True, 'stores': searched_stores}
 
-# @application.route('/api/stores/create-store', methods=['POST'])
-
+@application.route('/api/stores/create', methods=['POST'])
+def api_stores_create():
+    payload = request.get_json()
+    db_stores.create_stores(config, payload['name'], payload['location'], payload['hours'], payload['owner'], payload['ratings'], payload['covid_restrictions'])
+    return {'ok': True}
 
 @application.errorhandler(404)
 def api_not_found(e):
@@ -38,3 +41,50 @@ def api_not_found(e):
 if __name__ == "__main__":
     application.debug = False
     application.run()
+
+"""
+// Run this in Browser
+(async function() {
+
+
+let response;
+response = await fetch("/api/stores/all");
+response = await response.json();
+console.log("fetch all stores");
+console.table(response.stores)
+
+
+response = await fetch("/api/stores/name-search", {
+    method: "POST",
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        keyword: "family"
+    })
+});
+response = await response.json();
+console.log("search stores by name");
+console.table(response.stores);
+
+
+response = await fetch("/api/stores/create", {
+    method: "POST",
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        name: "Apple Inc",
+        location: "1 Infinite Loop",
+        hours: "24/7",
+        owner: "Steve Jobs",
+        ratings: 5.0,
+        covid_restrictions: "OPEN"
+    })
+});
+response = await response.json();
+console.log("search stores by name");
+console.log(response);
+
+})()
+"""

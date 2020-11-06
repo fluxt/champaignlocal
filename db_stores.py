@@ -1,6 +1,6 @@
 import pymysql
 
-def query_all_stores(config):
+def all_stores(config):
     connection = pymysql.connect(
         host=config['sqlhost'],
         user=config['sqluser'],
@@ -23,7 +23,7 @@ def query_all_stores(config):
     }, list(result)))
     return result
 
-def query_search_stores(config, keyword):
+def search_stores(config, keyword):
     connection = pymysql.connect(
         host=config['sqlhost'],
         user=config['sqluser'],
@@ -49,7 +49,41 @@ def query_search_stores(config, keyword):
     }, list(result)))
     return result
 
+def create_stores(config, name, location, hours, owner, ratings, covid_restictions):
+    connection = pymysql.connect(
+        host=config['sqlhost'],
+        user=config['sqluser'],
+        password=config['sqlpassword'],
+        db=config['sqldbname']
+    )
+    
+    cursor = connection.cursor()
+    query = """
+      INSERT INTO Stores(
+          Store_Name, Store_Location, Opening_Hours,
+          Store_Owner, Store_Ratings, Covid_Restrictions
+      ) VALUES (%s, %s, %s, %s, %s, %s)
+            """
+    cursor.execute(query, (name, location, hours, owner, ratings, covid_restictions))
+    connection.commit()
 
+# def update_stores(config, id, name, location, hours, owner, ratings, covid_restictions):
+#     connection = pymysql.connect(
+#         host=config['sqlhost'],
+#         user=config['sqluser'],
+#         password=config['sqlpassword'],
+#         db=config['sqldbname']
+#     )
+    
+#     cursor = connection.cursor()
+#     query = """
+#       INSERT INTO Stores(
+#           Store_Name, Store_Location, Opening_Hours,
+#           Store_Owner, Store_Ratings, Covid_Restrictions
+#       ) VALUES (%s, %s, %s, %s, %s, %s)
+#             """
+#     cursor.execute(query, (name, location, hours, owner, ratings, covid_restictions))
+#     connection.commit()
 
 # import json
 # with open('config.json') as f:
@@ -57,29 +91,3 @@ def query_search_stores(config, keyword):
 
 # if __name__ == "__main__":
 #     print(query_search_stores(config, "restaurant"))
-
-"""
-// Run this in Browser
-(async function() {
-
-let response;
-response = await fetch("/api/stores/all");
-response = await response.json();
-console.log("fetch all stores");
-console.log(response)
-
-response = await fetch("/api/stores/name-search", {
-    method: "POST",
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        keyword: "family"
-    })
-});
-response = await response.json();
-console.log("search stores by name");
-console.log(response);
-
-})()
-"""
