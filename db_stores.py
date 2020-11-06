@@ -49,9 +49,37 @@ def query_search_stores(config, keyword):
     }, list(result)))
     return result
 
+
+
 # import json
 # with open('config.json') as f:
 #     config = json.load(f)
 
 # if __name__ == "__main__":
 #     print(query_search_stores(config, "restaurant"))
+
+"""
+// Run this in Browser
+(async function() {
+
+console.log("fetch all stores");
+let response;
+response = await fetch("/api/stores/all");
+response = await response.json();
+console.log(response)
+
+console.log("search stores by name");
+response = await fetch("/api/stores/name-search", {
+    method: "POST",
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        keyword: "family"
+    })
+});
+response = await response.json();
+console.log(response);
+
+})()
+"""
