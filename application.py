@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import Flask
+from flask import Flask, request
 import json
 
 import db_store
@@ -21,6 +21,11 @@ def get_current_time():
 def get_all_stores():
     all_stores = db_store.query_all_stores(config)
     return {'ok': True, 'stores': all_stores}
+
+@application.route('/api/stores/get-search')
+def get_search_stores():
+    searched_stores = db_store.query_search_stores(config, request.args['q'])
+    return {'ok': True, 'stores': searched_stores}
 
 @application.errorhandler(404)
 def api_not_found(e):
