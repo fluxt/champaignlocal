@@ -62,13 +62,12 @@ def query_search_stores(config, keyword):
 // Run this in Browser
 (async function() {
 
-console.log("fetch all stores");
 let response;
 response = await fetch("/api/stores/all");
 response = await response.json();
+console.log("fetch all stores");
 console.log(response)
 
-console.log("search stores by name");
 response = await fetch("/api/stores/name-search", {
     method: "POST",
     headers: {
@@ -79,6 +78,7 @@ response = await fetch("/api/stores/name-search", {
     })
 });
 response = await response.json();
+console.log("search stores by name");
 console.log(response);
 
 })()
