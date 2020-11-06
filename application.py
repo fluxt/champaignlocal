@@ -25,13 +25,13 @@ def api_stores_all():
 @application.route('/api/stores/name-search', methods=['POST'])
 def api_stores_name_search():
     payload = request.get_json()
-    searched_stores = db_stores.search_stores(config, payload['keyword'])
+    searched_stores = db_stores.search_stores(config, payload.get('keyword'])
     return {'ok': True, 'stores': searched_stores}
 
 @application.route('/api/stores/create', methods=['POST'])
 def api_stores_create():
     payload = request.get_json()
-    db_stores.create_stores(config, payload['name'], payload['location'], payload['hours'], payload['owner'], payload['ratings'], payload['covid_restrictions'])
+    db_stores.create_stores(config, payload.get('name'), payload.get('location'), payload.get('hours'), payload.get('owner'), payload.get('ratings'), payload.get('covid_restrictions'))
     return {'ok': True}
 
 @application.errorhandler(404)
@@ -78,8 +78,7 @@ response = await fetch("/api/stores/create", {
         location: "1 Infinite Loop",
         hours: "24/7",
         owner: "Steve Jobs",
-        ratings: 5.0,
-        covid_restrictions: "OPEN"
+        ratings: 5.0
     })
 });
 response = await response.json();
