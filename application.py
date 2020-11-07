@@ -55,7 +55,7 @@ def api_stores_delete():
 
 @application.errorhandler(404)
 def api_not_found(e):
-    return "This is not the API you are looking for..."
+    return application.send_static_file('index.html')
 
 if __name__ == "__main__":
     application.debug = False
