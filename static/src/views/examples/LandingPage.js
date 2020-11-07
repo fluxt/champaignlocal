@@ -71,12 +71,52 @@ function LandingPage() {
     console.log(response);
   };
 
+  async function handleDeleteSubmit(event) {
+    event.preventDefault();
+    const target = event.target;
+    let response;
+    response = await fetch ("/api/stores/delete", {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json", 
+      },
+      body: JSON.stringify({
+        id: target.elements.deleteid.value
+      }),
+    });
+    response = await response.json();
+    console.log("delete store");
+    console.log(response);
+  };
+
+  async function handleUpdateSubmit(event) {
+    event.preventDefault();
+    const target = event.target;
+    let response;
+    response = await fetch ("api/stores/update", {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json",
+      },
+      body: JSON.stringify({
+        name: target.elements.updateName.value,
+        location: target.elements.updateLocation.value,
+        hours: target.elements.updateHours.value,
+        owner: target.elements.updateOwner.value,
+        covid_restrictions: target.elements.updateCovidRestrictions.value
+      }),
+    });
+    response = await response.json();
+    console.log("update store");
+    console.log(response);
+  };
+
   return (
     <>
-      {/* <ExamplesNavbar /> */}
-      {/* <LandingPageHeader /> */}
+      <ExamplesNavbar /> 
+      <LandingPageHeader /> 
       <div className="main">
-        {/* <div className="section text-center">
+        <div className="section text-center">
           <Container>
             <Row>
               <Col className="ml-auto mr-auto" md="8">
@@ -102,10 +142,10 @@ function LandingPage() {
             <br />
             <br />
           </Container>
-        </div> */}
+        </div> 
 
 
-        {/* <div className="section section-dark text-center">
+        <div className="section section-dark text-center">
           <Container>
             <h2 className="title">Meet the Creators</h2>
             <Row>
@@ -177,7 +217,7 @@ function LandingPage() {
               </Col>
             </Row>
           </Container>
-        </div> */}
+        </div> 
 
 
         <div className="section landing-section">
@@ -268,7 +308,7 @@ function LandingPage() {
             <Row>
               <Col className="ml-auto mr-auto" md="8">
                 <h2 className="text-center">Update Store Information</h2>
-                <Form className="contact-form">
+                <Form className="contact-form" onSubmit={handleUpdateSubmit}>
                   <Row>
                     <Col md="6">
                       <label>Which Store?</label>
@@ -278,7 +318,7 @@ function LandingPage() {
                             <i className="nc-icon nc-single-02" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input placeholder="Store Name" type="text" />
+                        <Input placeholder="Store Name" type="text" name = "updateName"/>
                       </InputGroup>
                     </Col>
                     <Col md="6">
@@ -289,7 +329,7 @@ function LandingPage() {
                             <i className="nc-icon nc-email-85" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input placeholder="Location" type="text" />
+                        <Input placeholder="Location" type="text" name = "updateLocation" />
                       </InputGroup>
                     </Col>
                   </Row>
@@ -302,7 +342,7 @@ function LandingPage() {
                             <i className="nc-icon nc-single-02" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input placeholder="12:00am-12:00pm" type="text" />
+                        <Input placeholder="12:00am-12:00pm" type="text" name = "updateHours" />
                       </InputGroup>
                     </Col>
                     <Col md="6">
@@ -313,7 +353,7 @@ function LandingPage() {
                             <i className="nc-icon nc-single-02" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input placeholder="Name" type="text" />
+                        <Input placeholder="Name" type="text" name = "updateOwner" />
                       </InputGroup>
                     </Col>
                   </Row>
@@ -326,7 +366,7 @@ function LandingPage() {
                           <i className = "nc-icon nc-single-02" />
                         </InputGroupText>
                       </InputGroupAddon>
-                        <Input placeholder = "OPEN, CLOSED, or OPEN(takeout)" type = "text" />
+                        <Input placeholder = "OPEN, CLOSED, or OPEN(takeout)" type = "text" name = "updateCovidRestrictions"/>
                       </InputGroup>
                     </Col>
                   </Row>
@@ -348,7 +388,7 @@ function LandingPage() {
             <Row>
               <Col className="ml-auto mr-auto" md="8">
                 <h2 className="text-center">Delete Store </h2>
-                <Form className="contact-form">
+                <Form className="contact-form" onSubmit={handleDeleteSubmit}>
                   <Row>
                     <Col md="6">
                       <label>Which Store?</label>
@@ -358,7 +398,7 @@ function LandingPage() {
                             <i className="nc-icon nc-single-02" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input placeholder="Store Name" type="text" />
+                        <Input placeholder="Store id" type="text" name = "deleteid" />
                       </InputGroup>
                     </Col>
                   </Row>
@@ -375,7 +415,7 @@ function LandingPage() {
           </Container>
         </div>
       </div>
-      {/* <DemoFooter /> */}
+    <DemoFooter />
     </>
   );
 }

@@ -23,11 +23,9 @@ import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 
 var title0 = "";
-var price0 = "";
-var describe0 = "";
-var image0 = "";
 
-class Search extends React.Component {
+
+class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -350,5 +348,5 @@ class Search extends React.Component {
     );
   }
 }
-export default Search;
+export default ProfilePage;
 
