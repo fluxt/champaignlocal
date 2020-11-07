@@ -99,6 +99,7 @@ function LandingPage() {
         "Content-Type" : "application/json",
       },
       body: JSON.stringify({
+        id: target.updateID.value,
         name: target.elements.updateName.value,
         location: target.elements.updateLocation.value,
         hours: target.elements.updateHours.value,
@@ -280,7 +281,7 @@ function LandingPage() {
                       <InputGroup>
                         <InputGroupAddon addonType = "prepend">
                         <InputGroupText>
-                          <i className = "nc-icon nc-single-02" />
+                          <i classname="nc-icon nc-single-02" />
                         </InputGroupText>
                       </InputGroupAddon>
                         <Input placeholder = "OPEN, CLOSED, or OPEN(takeout)" type = "text" name="createCovidRestrictions"/>
@@ -318,9 +319,22 @@ function LandingPage() {
                             <i className="nc-icon nc-single-02" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input placeholder="Store Name" type="text" name = "updateName"/>
+                        <Input placeholder="Store ID" type="text" name="updateID" />
                       </InputGroup>
                     </Col>
+                    <Col md="6">
+                      <label>Update Name</label>
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="nc-icon nc-single-02" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input placeholder="Store Name" type="text" name="updateName"/>
+                      </InputGroup>
+                    </Col>
+                  </Row>
+                  <Row>
                     <Col md="6">
                       <label>Update Location</label>
                       <InputGroup>
@@ -329,11 +343,9 @@ function LandingPage() {
                             <i className="nc-icon nc-email-85" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input placeholder="Location" type="text" name = "updateLocation" />
+                        <Input placeholder="Location" type="text" name="updateLocation" />
                       </InputGroup>
                     </Col>
-                  </Row>
-                  <Row>
                     <Col md="6">
                       <label>Update Hours</label>
                       <InputGroup>
@@ -342,9 +354,11 @@ function LandingPage() {
                             <i className="nc-icon nc-single-02" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input placeholder="12:00am-12:00pm" type="text" name = "updateHours" />
+                        <Input placeholder="12:00am-12:00pm" type="text" name="updateHours" />
                       </InputGroup>
                     </Col>
+                  </Row>
+                  <Row>
                     <Col md="6">
                       <label>Update Store Owner</label>
                       <InputGroup>
@@ -353,20 +367,18 @@ function LandingPage() {
                             <i className="nc-icon nc-single-02" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input placeholder="Name" type="text" name = "updateOwner" />
+                        <Input placeholder="Name" type="text" name="updateOwner" />
                       </InputGroup>
                     </Col>
-                  </Row>
-                  <Row>
                     <Col md="6">
                       <label>Update Covid Restrictions</label>
                       <InputGroup>
                         <InputGroupAddon addonType = "prepend">
                         <InputGroupText>
-                          <i className = "nc-icon nc-single-02" />
+                          <i classname="nc-icon nc-single-02" />
                         </InputGroupText>
                       </InputGroupAddon>
-                        <Input placeholder = "OPEN, CLOSED, or OPEN(takeout)" type = "text" name = "updateCovidRestrictions"/>
+                        <Input placeholder = "OPEN, CLOSED, or OPEN(takeout)" type = "text" name="updateCovidRestrictions"/>
                       </InputGroup>
                     </Col>
                   </Row>
@@ -398,7 +410,7 @@ function LandingPage() {
                             <i className="nc-icon nc-single-02" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input placeholder="Store id" type="text" name = "deleteid" />
+                        <Input placeholder="Store ID" type="text" name="deleteid" />
                       </InputGroup>
                     </Col>
                   </Row>
