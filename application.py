@@ -17,22 +17,38 @@ def index():
 def api_time():
     return {'ok': True, 'time': datetime.now()}
 
+
+@application.route('/api/stores/one', methods=['GET'])
+def api_stores_one():
+    one_store = db_stores.one_store(config, request.args.get('id'))
+    return {'ok': True, 'store': one_store}
+
 @application.route('/api/stores/all', methods=['GET'])
 def api_stores_all():
     all_stores = db_stores.all_stores(config)
     return {'ok': True, 'stores': all_stores}
 
-@application.route('/api/stores/name-search', methods=['POST'])
+@application.route('/api/stores/name-search', methods=['GET'])
 def api_stores_name_search():
     payload = request.get_json()
-    searched_stores = db_stores.search_stores(config, payload.get('keyword'))
+    searched_stores = db_stores.search_stores_by_name(config, request.args.get('keyword'))
     return {'ok': True, 'stores': searched_stores}
 
 @application.route('/api/stores/create', methods=['POST'])
 def api_stores_create():
     payload = request.get_json()
-    db_stores.create_stores(config, payload.get('name'), payload.get('location'), payload.get('hours'), payload.get('owner'), payload.get('ratings'), payload.get('covid_restrictions'))
-    return {'ok': True}
+    created_id = db_stores.create_store(config, payload.get('name'), payload.get('location'), payload.get('hours'), payload.get('owner'), payload.get('ratings'), payload.get('covid_restrictions'))
+    one_store = db_stores.one_store(config, created_id)
+    return {'ok': True, 'store': one_store}
+
+
+@application.route('/api/stores/update', methods=['POST'])
+def api_stores_update():
+    payload = request.get_json()
+    updated_id = db_stores.update_store(config, payload.get('id'), payload.get('name'), payload.get('location'), payload.get('hours'), payload.get('owner'), payload.get('ratings'), payload.get('covid_restrictions'))
+    print(updated_id)
+    one_store = db_stores.one_store(config, updated_id)
+    return {'ok': True, 'store': one_store}
 
 @application.errorhandler(404)
 def api_not_found(e):
@@ -45,28 +61,16 @@ if __name__ == "__main__":
 """
 // Run this in Browser
 (async function() {
-
-
 let response;
 response = await fetch("/api/stores/all");
 response = await response.json();
-console.log("fetch all stores");
-console.table(response.stores)
+console.log("fetch all stores (first five)");
+console.table(response.stores.slice(0,5))
 
-
-response = await fetch("/api/stores/name-search", {
-    method: "POST",
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        keyword: "family"
-    })
-});
+response = await fetch("/api/stores/name-search?keyword=family");
 response = await response.json();
 console.log("search stores by name");
 console.table(response.stores);
-
 
 response = await fetch("/api/stores/create", {
     method: "POST",
@@ -83,8 +87,24 @@ response = await fetch("/api/stores/create", {
     })
 });
 response = await response.json();
-console.log("search stores by name");
-console.log(response);
+console.log("create apple store");
+console.log(response.store);
 
+created_store_id = response.store.id;
+console.log(`created store id is: ${created_store_id}`)
+
+response = await fetch("/api/stores/update", {
+    method: "POST",
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        id: created_store_id,
+        owner: "Tim Cook"
+    })
+});
+response = await response.json();
+console.log("update store owner to Tim Cook");
+console.log(response.store);
 })()
 """
