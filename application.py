@@ -17,7 +17,6 @@ def index():
 def api_time():
     return {'ok': True, 'time': datetime.now()}
 
-
 @application.route('/api/stores/one', methods=['GET'])
 def api_stores_one():
     one_store = db_stores.one_store(config, request.args.get('id'))
@@ -40,7 +39,6 @@ def api_stores_create():
     created_id = db_stores.create_store(config, payload.get('name'), payload.get('location'), payload.get('hours'), payload.get('owner'), payload.get('ratings'), payload.get('covid_restrictions'))
     one_store = db_stores.one_store(config, created_id)
     return {'ok': True, 'store': one_store}
-
 
 @application.route('/api/stores/update', methods=['POST'])
 def api_stores_update():

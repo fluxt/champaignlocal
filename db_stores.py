@@ -164,10 +164,3 @@ def delete_store(config, store_id):
         connection.commit()
     finally:
         connection.close()
-
-# import json
-# with open('config.json') as f:
-#     config = json.load(f)
-
-# if __name__ == "__main__":
-#     print(update_stores(config, 3, "", "", "", "", "", ""))
