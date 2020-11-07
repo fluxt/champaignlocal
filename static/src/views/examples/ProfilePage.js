@@ -102,6 +102,7 @@ class ProfilePage extends React.Component {
                   return (
                     <Card style={{ width: "30rem" }}>
                       <CardBody>
+                        {/* <CardImg top src={this.state.testImage} alt="..." /> */}
                         <CardTitle>{store.name}</CardTitle>
                         <CardText>Store ID: {store.id}</CardText>
                         <CardText>Covid Restrictions: {store.covid_restrictions}</CardText>
@@ -109,7 +110,7 @@ class ProfilePage extends React.Component {
                         <CardText>Store Location: {store.location}</CardText>
                         <CardText>Store Owner: {store.owner}</CardText>
                         <CardText>ratings: {store.ratings}</CardText>
-                        <Button
+                        {/* <Button
                           style={{
                             backgroundColor: "navajowhite",
                             borderColor: "darkslategray",
@@ -117,7 +118,7 @@ class ProfilePage extends React.Component {
                           }}
                         >
                           {store.id}
-                        </Button>
+                        </Button> */}
                       </CardBody>
                     </Card>
                   )
