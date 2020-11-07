@@ -69,6 +69,7 @@ function LandingPage() {
     response = await response.json();
     console.log("creating store");
     console.log(response);
+    alert(`Created Store ID: ${response.store.id}`);
   };
 
   async function handleDeleteSubmit(event) {
