@@ -33,8 +33,10 @@ import RegisterPage from "views/examples/RegisterPage.js";
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/landing-page" 
-      render={(props) => <LandingPage {...props} />} />
+      <Route 
+        path="/" 
+        render={(props) => <LandingPage {...props} />}
+      />
       <Route
         path="/profile-page"
         render={(props) => <ProfilePage {...props} />}
@@ -43,7 +45,7 @@ ReactDOM.render(
         path="/register-page"
         render={(props) => <RegisterPage {...props} />}
       />
-      <Redirect to="/landing-page" />
+      <Redirect to="/" />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

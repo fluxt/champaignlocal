@@ -50,8 +50,8 @@ function LandingPage() {
   });
 
   async function handleCreateSubmit(event) {
+    event.preventDefault();
     const target = event.target;
-
     let response;
     response = await fetch("/api/stores/create", {
       method: "POST",
@@ -69,8 +69,6 @@ function LandingPage() {
     response = await response.json();
     console.log("creating store");
     console.log(response);
-
-    event.preventDefault();
   };
 
   return (
