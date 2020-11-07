@@ -46,9 +46,14 @@ def api_stores_create():
 def api_stores_update():
     payload = request.get_json()
     updated_id = db_stores.update_store(config, payload.get('id'), payload.get('name'), payload.get('location'), payload.get('hours'), payload.get('owner'), payload.get('ratings'), payload.get('covid_restrictions'))
-    print(updated_id)
     one_store = db_stores.one_store(config, updated_id)
     return {'ok': True, 'store': one_store}
+
+@application.route('/api/stores/delete', methods=['POST'])
+def api_stores_delete():
+    payload = request.get_json()
+    db_stores.delete_store(config, payload.get('id'))
+    return {'ok': True}
 
 @application.errorhandler(404)
 def api_not_found(e):
@@ -64,12 +69,14 @@ if __name__ == "__main__":
 let response;
 response = await fetch("/api/stores/all");
 response = await response.json();
-console.log("fetch all stores (first five)");
+console.log("fetch all stores");
+console.log(response);
 console.table(response.stores.slice(0,5))
 
 response = await fetch("/api/stores/name-search?keyword=family");
 response = await response.json();
 console.log("search stores by name");
+console.log(response);
 console.table(response.stores);
 
 response = await fetch("/api/stores/create", {
@@ -88,7 +95,7 @@ response = await fetch("/api/stores/create", {
 });
 response = await response.json();
 console.log("create apple store");
-console.log(response.store);
+console.log(response);
 
 created_store_id = response.store.id;
 console.log(`created store id is: ${created_store_id}`)
@@ -105,6 +112,19 @@ response = await fetch("/api/stores/update", {
 });
 response = await response.json();
 console.log("update store owner to Tim Cook");
-console.log(response.store);
+console.log(response);
+
+response = await fetch("/api/stores/delete", {
+    method: "POST",
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        id: created_store_id
+    })
+});
+response = await response.json();
+console.log("deleted the store");
+console.log(response);
 })()
 """

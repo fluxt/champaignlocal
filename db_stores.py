@@ -152,6 +152,19 @@ def update_store(config, store_id, name, location, hours, owner, ratings, covid_
         connection.close()
     return store_id
 
+def delete_store(config, store_id):
+    connection = get_connection(config)
+    try:
+        cursor = connection.cursor()
+        query = """
+                DELETE FROM Stores
+                WHERE Store_ID = %s
+                """
+        cursor.execute(query, store_id)
+        connection.commit()
+    finally:
+        connection.close()
+
 # import json
 # with open('config.json') as f:
 #     config = json.load(f)
