@@ -34,7 +34,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route 
-        path="/" 
+        path="/landing-page" 
         render={(props) => <LandingPage {...props} />}
       />
       <Route
@@ -45,7 +45,7 @@ ReactDOM.render(
         path="/register-page"
         render={(props) => <RegisterPage {...props} />}
       />
-      <Redirect to="/" />
+      <Redirect to="/landing-page" />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")
