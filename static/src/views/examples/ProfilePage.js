@@ -100,12 +100,15 @@ class ProfilePage extends React.Component {
               {
                 this.state.stores.map((store) => {
                   return (
-                    <Card style={{ width: "20rem" }}>
-                      {/* <CardImg top src={this.state.testImage} alt="..." /> */}
-                      <CardImg top src={require("assets/img/placeholder.jpg")} alt="..." />
+                    <Card style={{ width: "30rem" }}>
                       <CardBody>
                         <CardTitle>{store.name}</CardTitle>
-                        <CardText>{store.id}</CardText>
+                        <CardText>Store ID: {store.id}</CardText>
+                        <CardText>Covid Restrictions: {store.covid_restrictions}</CardText>
+                        <CardText>Hours: {store.hours}</CardText>
+                        <CardText>Store Location: {store.location}</CardText>
+                        <CardText>Store Owner: {store.owner}</CardText>
+                        <CardText>ratings: {store.ratings}</CardText>
                         <Button
                           style={{
                             backgroundColor: "navajowhite",
