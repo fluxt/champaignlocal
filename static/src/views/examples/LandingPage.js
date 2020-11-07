@@ -114,7 +114,7 @@ function LandingPage() {
 
   return (
     <>
-      <ExamplesNavbar /> 
+      {/* <ExamplesNavbar />  */}
       <LandingPageHeader /> 
       <div className="main">
         <div className="section text-center">
