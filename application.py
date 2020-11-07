@@ -7,7 +7,7 @@ import db_stores
 with open('config.json') as f:
     config = json.load(f)
 
-application = Flask(__name__, static_folder='./build', static_url_path='/')
+application = Flask(__name__, static_folder='./static/build', static_url_path='/')
 
 @application.route('/')
 def index():

@@ -9,39 +9,14 @@ Prerequisites:
 * python (version 3.8.x) & pip
 * node (version 12) & npm
 
-1. Edit and rename config.json
-
-Set up the configuration file for a local or remote SQL database
-
-After the edit, rename config.json.sample to config.json
+1. Install Frontend Dependencies
 
 ```sh
-mv config.json.sample config.json
-```
-
-2. Create virtualenv and install dependencies for Flask API
-
-```sh
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-3. Install React Dependencies
-
-```sh
+cd static
 npm install
 ```
 
-4. Start Flask
-
-```sh
-npm run start-flask
-```
-
-Flask is located at http://localhost:5000 (try http://localhost:5000/api/time)
-
-5. Build/Start React
+2. Build Frontend Resources
 
 Option 1: Build React to be served by Flask (no browser debugging)
 
@@ -62,12 +37,39 @@ npm run clean
 Option 2: Use react-scripts to debug React (browser debugging)
 
 ```sh
-npm run start-react
+npm run start
 ```
 
 React is located at http://localhost:3000
 
 All api requests are proxied to http://localhost:5000
+
+3. Edit and rename config.json
+
+Set up the configuration file for a local or remote SQL database
+
+After the edit, rename config.json.sample to config.json
+
+```sh
+cd ..
+mv config.json.sample config.json
+```
+
+4. Create virtualenv and install dependencies for Flask API
+
+```sh
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+5. Start Flask
+
+```sh
+python application.py
+```
+
+Flask is located at http://localhost:5000 (try http://localhost:5000/api/time)
 
 ## Credits
 
