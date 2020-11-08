@@ -9,7 +9,7 @@ Prerequisites:
 * python (version 3.8.x) & pip
 * node (version 12) & npm
 
-1. Install Frontend Dependencies
+### Install Frontend Dependencies
 
 In the /static directory
 
@@ -17,7 +17,7 @@ In the /static directory
 npm install
 ```
 
-2. Build Frontend Resources
+### Build Frontend Resources
 
 Option 1: Build React to be served by Flask (no browser debugging)
 
@@ -43,7 +43,7 @@ React is located at http://localhost:3000
 
 All api requests are proxied to http://localhost:5000
 
-3. Setup config.json
+### Setup config.json
 
 In the root directory
 
@@ -53,7 +53,7 @@ cp config.json.sample config.json
 
 Edit config.json for your local or remote databases.
 
-4. Create virtualenv and install dependencies for Flask API
+### Create virtualenv and install dependencies for Flask API
 
 In the root directory
 
@@ -63,7 +63,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-5. Start Flask
+### Start Flask
 
 In the root directory
 
