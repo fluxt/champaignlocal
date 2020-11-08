@@ -23,7 +23,7 @@ import {
   Button,
   Card,
   CardBody,
-  CardFooter,
+  // CardFooter,
   CardTitle,
   Form,
   Input,
@@ -242,8 +242,8 @@ function LandingPage() {
                       the money that you want without becoming very good at it.
                     </p>*/}
                   </CardBody>
-                  <CardFooter className="text-center">
-                    {/* <Button
+                  {/* <CardFooter className="text-center">
+                    <Button
                       className="btn-just-icon btn-neutral"
                       color="link"
                       href="#pablo"
@@ -266,8 +266,8 @@ function LandingPage() {
                       onClick={(e) => e.preventDefault()}
                     >
                       <i className="fa fa-linkedin" />
-                    </Button> */}
-                  </CardFooter>
+                    </Button>
+                  </CardFooter> */}
                 </Card>
               </Col>
               <Col md="4">
@@ -294,8 +294,8 @@ function LandingPage() {
                       orchestra to play it.
                     </p>*/}
                   </CardBody>
-                  <CardFooter className="text-center">
-                    {/* <Button
+                  {/* <CardFooter className="text-center">
+                    <Button
                       className="btn-just-icon btn-neutral"
                       color="link"
                       href="#pablo"
@@ -318,8 +318,8 @@ function LandingPage() {
                       onClick={(e) => e.preventDefault()}
                     >
                       <i className="fa fa-linkedin" />
-                    </Button> */}
-                  </CardFooter>
+                    </Button>
+                  </CardFooter> */}
                 </Card>
               </Col>
               <Col md="4">
@@ -346,8 +346,8 @@ function LandingPage() {
                       it’s deadly.
                     </p>*/}
                   </CardBody>
-                  <CardFooter className="text-center">
-                    {/* <Button
+                  {/* <CardFooter className="text-center">
+                    <Button
                       className="btn-just-icon btn-neutral"
                       color="link"
                       href="#pablo"
@@ -370,8 +370,8 @@ function LandingPage() {
                       onClick={(e) => e.preventDefault()}
                     >
                       <i className="fa fa-linkedin" />
-                    </Button> */}
-                  </CardFooter>
+                    </Button>
+                  </CardFooter> */}
                 </Card>
               </Col>
             </Row>
