@@ -11,14 +11,17 @@ Prerequisites:
 
 1. Install Frontend Dependencies
 
+In the /static directory
+
 ```sh
-cd static
 npm install
 ```
 
 2. Build Frontend Resources
 
 Option 1: Build React to be served by Flask (no browser debugging)
+
+In the /static directory
 
 ```sh
 npm run build
@@ -28,13 +31,9 @@ Flask is already configured to serve static files at /build.
 
 App is located at http://localhost:5000
 
-To reset,
-
-```sh
-npm run clean
-```
-
 Option 2: Use react-scripts to debug React (browser debugging)
+
+In the /static directory, open another terminal
 
 ```sh
 npm run start
@@ -44,18 +43,19 @@ React is located at http://localhost:3000
 
 All api requests are proxied to http://localhost:5000
 
-3. Edit and rename config.json
+3. Setup config.json
 
-Set up the configuration file for a local or remote SQL database
-
-After the edit, rename config.json.sample to config.json
+In the root directory
 
 ```sh
-cd ..
-mv config.json.sample config.json
+cp config.json.sample config.json
 ```
 
+Edit config.json for your local or remote databases.
+
 4. Create virtualenv and install dependencies for Flask API
+
+In the root directory
 
 ```sh
 python -m venv venv
@@ -65,6 +65,8 @@ pip install -r requirements.txt
 
 5. Start Flask
 
+In the root directory
+
 ```sh
 python application.py
 ```
@@ -73,4 +75,4 @@ Flask is located at http://localhost:5000 (try http://localhost:5000/api/time)
 
 ## Credits
 
-Project Structure and Deployment Instructions based on [How to Create a React Flask Project by Miguel Grinberg](https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project)
+[Front-end template 'paper-kit-react' by Creative Tim](https://github.com/creativetimofficial/paper-kit-react)
