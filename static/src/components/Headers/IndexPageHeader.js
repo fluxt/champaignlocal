@@ -1,21 +1,3 @@
-/*!
-
-=========================================================
-* Paper Kit React - v1.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 
 // reactstrap components
@@ -23,7 +5,10 @@ import { Button, Container } from "reactstrap";
 
 // core components
 
-function LandingPageHeader() {
+// images
+import indexPageBackground from "assets/img/daniel-olahh.jpg";
+
+function IndexPageHeader() {
   let pageHeader = React.createRef();
 
   React.useEffect(() => {
@@ -45,7 +30,7 @@ function LandingPageHeader() {
       <div
         style={{
           backgroundImage:
-            "url(" + require("assets/img/daniel-olahh.jpg") + ")",
+            `url(${indexPageBackground})`,
         }}
         className="page-header"
         data-parallax={true}
@@ -58,14 +43,6 @@ function LandingPageHeader() {
             Champaign Local</h1>
             <h3 className = 'presentation-subtitle text-center'>Your one stop shop for finding local buisness in the CU Area!</h3>
             <br />
-            <Button
-                className="btn-outline-neutral btn-round"
-                color="default"
-                href="/profile-page"
-                target="_blank"
-              >
-                Search Page
-              </Button>
           </div>
         </Container>
       </div>
@@ -73,4 +50,4 @@ function LandingPageHeader() {
   );
 }
 
-export default LandingPageHeader;
+export default IndexPageHeader;
