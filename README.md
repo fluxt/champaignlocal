@@ -43,15 +43,15 @@ React is located at http://localhost:3000
 
 All api requests are proxied to http://localhost:5000
 
-### Setup config.json
+### Setup .env configuration
 
 In the root directory
 
 ```sh
-cp config.json.sample config.json
+cp .env.sample .env
 ```
 
-Edit config.json for your local or remote databases.
+Edit .env for your local or remote databases.
 
 ### Create virtualenv and install dependencies for Flask API
 

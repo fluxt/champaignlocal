@@ -1,18 +1,19 @@
 import pymysql
 from pymysql.constants import CLIENT
+import os
 
-def get_connection(config):
+def get_connection():
     connection = pymysql.connect(
-        host=config['sqlhost'],
-        user=config['sqluser'],
-        password=config['sqlpassword'],
-        db=config['sqldbname'],
+        host=os.environ.get('SQL_HOST'),
+        user=os.environ.get('SQL_USER'),
+        password=os.environ.get('SQL_PASSWORD'),
+        db=os.environ.get('SQL_DBNAME'),
         client_flag=CLIENT.MULTI_STATEMENTS
     )
     return connection
 
-def one_store(config, store_id):
-    connection = get_connection(config)
+def one_store(store_id):
+    connection = get_connection()
     try:
         cursor = connection.cursor()
         query = """
@@ -33,8 +34,8 @@ def one_store(config, store_id):
         "covid_restrictions": store[6]
     }
 
-def all_stores(config):
-    connection = get_connection(config)
+def all_stores():
+    connection = get_connection()
     try:
         cursor = connection.cursor()
         query = "SELECT * FROM Stores;"
@@ -54,8 +55,8 @@ def all_stores(config):
     }, list(result)))
     return result
 
-def search_stores_by_name(config, keyword):
-    connection = get_connection(config)
+def search_stores_by_name(keyword):
+    connection = get_connection()
     try:
         cursor = connection.cursor()
         query = """
@@ -78,8 +79,8 @@ def search_stores_by_name(config, keyword):
     }, list(result)))
     return result
 
-def create_store(config, name, location, hours, owner, ratings, covid_restrictions):
-    connection = get_connection(config)
+def create_store(name, location, hours, owner, ratings, covid_restrictions):
+    connection = get_connection()
     try:
         cursor = connection.cursor()
         query = """
@@ -95,8 +96,8 @@ def create_store(config, name, location, hours, owner, ratings, covid_restrictio
         connection.close()
     return result
 
-def update_store(config, store_id, name, location, hours, owner, ratings, covid_restrictions):
-    connection = get_connection(config)
+def update_store(store_id, name, location, hours, owner, ratings, covid_restrictions):
+    connection = get_connection()
     try:
         cursor = connection.cursor()
 
@@ -152,8 +153,8 @@ def update_store(config, store_id, name, location, hours, owner, ratings, covid_
         connection.close()
     return store_id
 
-def delete_store(config, store_id):
-    connection = get_connection(config)
+def delete_store(store_id):
+    connection = get_connection()
     try:
         cursor = connection.cursor()
         query = """

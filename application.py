@@ -1,11 +1,8 @@
-from datetime import datetime
+import time
 from flask import Flask, request
 import json
 
 import db_stores
-
-with open('config.json') as f:
-    config = json.load(f)
 
 application = Flask(__name__, static_folder='./static/build', static_url_path='/')
 
@@ -15,42 +12,42 @@ def index():
 
 @application.route('/api/time')
 def api_time():
-    return {'ok': True, 'time': datetime.now()}
+    return {'ok': True, 'time': int(time.time())}
 
 @application.route('/api/stores/one', methods=['GET'])
 def api_stores_one():
-    one_store = db_stores.one_store(config, request.args.get('id'))
+    one_store = db_stores.one_store(request.args.get('id'))
     return {'ok': True, 'store': one_store}
 
 @application.route('/api/stores/all', methods=['GET'])
 def api_stores_all():
-    all_stores = db_stores.all_stores(config)
+    all_stores = db_stores.all_stores()
     return {'ok': True, 'stores': all_stores}
 
 @application.route('/api/stores/name-search', methods=['GET'])
 def api_stores_name_search():
     payload = request.get_json()
-    searched_stores = db_stores.search_stores_by_name(config, request.args.get('keyword'))
+    searched_stores = db_stores.search_stores_by_name(request.args.get('keyword'))
     return {'ok': True, 'stores': searched_stores}
 
 @application.route('/api/stores/create', methods=['POST'])
 def api_stores_create():
     payload = request.get_json()
-    created_id = db_stores.create_store(config, payload.get('name'), payload.get('location'), payload.get('hours'), payload.get('owner'), payload.get('ratings'), payload.get('covid_restrictions'))
-    one_store = db_stores.one_store(config, created_id)
+    created_id = db_stores.create_store(payload.get('name'), payload.get('location'), payload.get('hours'), payload.get('owner'), payload.get('ratings'), payload.get('covid_restrictions'))
+    one_store = db_stores.one_store(created_id)
     return {'ok': True, 'store': one_store}
 
 @application.route('/api/stores/update', methods=['POST'])
 def api_stores_update():
     payload = request.get_json()
-    updated_id = db_stores.update_store(config, payload.get('id'), payload.get('name'), payload.get('location'), payload.get('hours'), payload.get('owner'), payload.get('ratings'), payload.get('covid_restrictions'))
-    one_store = db_stores.one_store(config, updated_id)
+    updated_id = db_stores.update_store(payload.get('id'), payload.get('name'), payload.get('location'), payload.get('hours'), payload.get('owner'), payload.get('ratings'), payload.get('covid_restrictions'))
+    one_store = db_stores.one_store(updated_id)
     return {'ok': True, 'store': one_store}
 
 @application.route('/api/stores/delete', methods=['POST'])
 def api_stores_delete():
     payload = request.get_json()
-    db_stores.delete_store(config, payload.get('id'))
+    db_stores.delete_store(payload.get('id'))
     return {'ok': True}
 
 @application.errorhandler(404)
