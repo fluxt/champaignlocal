@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 // nodejs library that concatenates strings
 import classnames from "classnames";
 
@@ -13,6 +13,7 @@ import {
   Nav,
   Container,
 } from "reactstrap";
+import { useAuth } from "utils/auth.js";
 
 function DefaultNavbar() {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
@@ -44,6 +45,9 @@ function DefaultNavbar() {
       window.removeEventListener("scroll", updateNavbarColor);
     };
   });
+
+  const auth = useAuth();
+  const history = useHistory();
 
   return (
     <Navbar
@@ -80,15 +84,32 @@ function DefaultNavbar() {
         >
           <Nav navbar>
             <NavItem>
-              <NavLink to="/users/register" tag={Link}>
-                <i className="nc-icon nc-shop" /> Register
-              </NavLink>
-            </NavItem>
-            <NavItem>
               <NavLink to="/stores" tag={Link}>
                 <i className="nc-icon nc-shop" /> Stores
               </NavLink>
             </NavItem>
+            { !auth.user &&
+              <NavItem>
+                <NavLink to="/users/login" tag={Link}>
+                  <i className="nc-icon nc-key-25" /> Login
+                </NavLink>
+              </NavItem>
+            }
+            { auth.user &&
+              <NavItem>
+                <NavLink to="/users/logout" tag={Link} onClick={()=>{auth.logout(); history.push("/")}}>
+                  <i className="nc-icon nc-key-25" /> Logout
+                </NavLink>
+              </NavItem>
+            }
+            {
+              auth.user &&
+              <NavItem>
+                <NavLink>
+                  Logged in as {auth.user}
+                </NavLink>
+              </NavItem>
+            }
           </Nav>
         </Collapse>
       </Container>
