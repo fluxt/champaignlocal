@@ -45,7 +45,7 @@ export function RouteWithAuth({ ...rest }) {
   return (
     auth.user ?
       <Route {...rest} /> :
-      <Redirect to={{ pathname: "/users/login" }} />
+      <Redirect to={{ pathname: "/users/login", state: { from: rest.path } }} />
   );
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 // nodejs library that concatenates strings
 import classnames from "classnames";
 
@@ -48,6 +48,7 @@ function DefaultNavbar() {
 
   const auth = useAuth();
   const history = useHistory();
+  const location = useLocation();
 
   return (
     <Navbar
@@ -90,20 +91,19 @@ function DefaultNavbar() {
             </NavItem>
             { !auth.user &&
               <NavItem>
-                <NavLink to="/users/login" tag={Link}>
+                <NavLink to={{ pathname: "/users/login", state: {from: location.pathname} }} tag={Link}>
                   <i className="nc-icon nc-key-25" /> Login
                 </NavLink>
               </NavItem>
             }
             { auth.user &&
               <NavItem>
-                <NavLink to="/users/logout" tag={Link} onClick={()=>{auth.logout(); history.push("/")}}>
+                <NavLink to="/" tag={Link} onClick={()=>{auth.logout(); history.push("/");}}>
                   <i className="nc-icon nc-key-25" /> Logout
                 </NavLink>
               </NavItem>
             }
-            {
-              auth.user &&
+            { auth.user &&
               <NavItem>
                 <NavLink>
                   Logged in as {auth.user}
