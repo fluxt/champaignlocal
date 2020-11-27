@@ -1,10 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-// import jwtDecode from "jwt-decode";
-// const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
-// const decoded = jwtDecode(token);
-
 export const authContext = React.createContext();
 
 export function useAuth() {
@@ -13,22 +9,38 @@ export function useAuth() {
 
 export function ProvideAuth({ children }) {
   const [user, setUser] = React.useState(null);
+  const [groups, setGroups] = React.useState([]);
+  const [token, setToken] = React.useState(null);
 
   const login = async (username, password) => {
-    if (username==="username" && password==="password") {
-      setUser(username);
-      return {'ok': true};
-    } else {
-      return {'ok': false};
+    const response = await fetch( "/api/users/login", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username, password
+      })
+    });
+    const payload = await response.json();
+    if (payload.ok) {
+      setUser(payload.username);
+      setGroups(payload.groups);
+      setToken(payload.token);
     }
+    return payload.ok;
   };
 
   const logout = async () => {
     setUser(null);
+    setGroups([]);
+    setToken(null);
   };
 
   const auth = {
     user,
+    groups,
+    token,
     login,
     logout
   };

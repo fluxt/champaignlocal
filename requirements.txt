@@ -1,3 +1,4 @@
 flask
 PyMySQL
+authlib
 python-dotenv

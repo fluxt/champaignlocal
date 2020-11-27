@@ -1,58 +1,100 @@
-import time
-from flask import Flask, request
+import os
+from flask import Flask, request, jsonify
 import json
 
-import db_stores
+import auth
+import stores
 
-application = Flask(__name__, static_folder='./static/build', static_url_path='/')
+application = Flask(__name__, static_folder='./static/build')
 
-@application.route('/')
-def index():
-    return application.send_static_file('index.html')
+@application.route('/', defaults={'path': ''})
+@application.route('/<path:path>')
+def serve(path):
+    if path != "" and os.path.exists(f"{application.static_folder}/{path}"):
+        return application.send_static_file(path)
+    else:
+        return application.send_static_file('index.html')
 
-@application.route('/api/time')
-def api_time():
-    return {'ok': True, 'time': int(time.time())}
+@application.errorhandler(404)
+def not_found(e):
+    return application.send_static_file('index.html'), 404
+
+@application.route('/api/test')
+def api_test():
+    return {'ok': True}
+
+@application.route('/api/users/login', methods=['POST'])
+def api_users_login():
+    payload = request.get_json()
+    valid, username, groups, token = auth.loginJWT(payload.get('username'), payload.get('password'))
+    if valid:
+        return {'ok': True, 'username': username, 'groups': groups, 'token': token}
+    else:
+        return {'ok': False}
+
+@application.route('/api/users/validate')
+def api_users_validate():
+    valid, username, groups, token = auth.validateJWT(request.headers.get('Authorization'))
+    if valid:
+        return {'ok': True, 'username': username, 'groups': groups, 'token': token}
+    else:
+        return {'ok': False}, 401
 
 @application.route('/api/stores/one', methods=['GET'])
 def api_stores_one():
-    one_store = db_stores.one_store(request.args.get('id'))
+    one_store = stores.one_store(request.args.get('id'))
     return {'ok': True, 'store': one_store}
 
 @application.route('/api/stores/all', methods=['GET'])
 def api_stores_all():
-    all_stores = db_stores.all_stores()
+    all_stores = stores.all_stores()
     return {'ok': True, 'stores': all_stores}
 
 @application.route('/api/stores/name-search', methods=['GET'])
 def api_stores_name_search():
     payload = request.get_json()
-    searched_stores = db_stores.search_stores_by_name(request.args.get('keyword'))
+    searched_stores = stores.search_stores_by_name(request.args.get('keyword'))
     return {'ok': True, 'stores': searched_stores}
 
 @application.route('/api/stores/create', methods=['POST'])
 def api_stores_create():
     payload = request.get_json()
-    created_id = db_stores.create_store(payload.get('name'), payload.get('location'), payload.get('hours'), payload.get('owner'), payload.get('ratings'), payload.get('covid_restrictions'))
-    one_store = db_stores.one_store(created_id)
+    created_id = stores.create_store(
+        payload.get('name'),
+        payload.get('location'),
+        payload.get('hours'),
+        payload.get('owner'),
+        payload.get('ratings'),
+        payload.get('covid_restrictions')
+    )
+    one_store = stores.one_store(created_id)
     return {'ok': True, 'store': one_store}
 
 @application.route('/api/stores/update', methods=['POST'])
 def api_stores_update():
     payload = request.get_json()
-    updated_id = db_stores.update_store(payload.get('id'), payload.get('name'), payload.get('location'), payload.get('hours'), payload.get('owner'), payload.get('ratings'), payload.get('covid_restrictions'))
-    one_store = db_stores.one_store(updated_id)
+    updated_id = stores.update_store(
+        payload.get('id'),
+        payload.get('name'),
+        payload.get('location'),
+        payload.get('hours'),
+        payload.get('owner'),
+        payload.get('ratings'),
+        payload.get('covid_restrictions')
+    )
+    one_store = stores.one_store(updated_id)
     return {'ok': True, 'store': one_store}
 
 @application.route('/api/stores/delete', methods=['POST'])
 def api_stores_delete():
     payload = request.get_json()
-    db_stores.delete_store(payload.get('id'))
+    stores.delete_store(payload.get('id'))
     return {'ok': True}
 
-@application.errorhandler(404)
-def api_not_found(e):
-    return application.send_static_file('index.html')
+@application.route('/api', defaults={'path': ''})
+@application.route('/api/<path:path>')
+def api_not_found(path):
+    return {'ok': False, 'error': "api not found"}, 404
 
 if __name__ == "__main__":
     application.debug = False
@@ -61,6 +103,32 @@ if __name__ == "__main__":
 """
 // Run this in Browser
 (async function() {
+
+username = "username2";
+password = "password2";
+response = await fetch( "/api/users/login", {
+    method: "POST",
+    headers: {
+    'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        username, password
+    })
+});
+payload = await response.json();
+console.log("logged in")
+console.log(payload)
+
+token = payload.token
+response = await fetch( "/api/users/validate", {
+    headers: {
+    'Authorization': token
+    },
+});
+payload = await response.json();
+console.log("validating token")
+console.log(payload)
+
 let response;
 response = await fetch("/api/stores/all");
 response = await response.json();
@@ -122,4 +190,5 @@ response = await response.json();
 console.log("deleted the store");
 console.log(response);
 })()
+
 """

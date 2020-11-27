@@ -33,9 +33,13 @@ function LoginPage() {
     const username = target.elements.username.value;
     const password = target.elements.password.value;
 
-    const response = await auth.login(username, password);
-    
-    if (response.ok) {
+    let success = false;
+    try {
+      success = await auth.login(username, password);
+    } catch (e) {
+      console.log(e);
+    }
+    if (success) {
       history.replace(from);
     }
   }

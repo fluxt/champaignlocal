@@ -106,7 +106,7 @@ function DefaultNavbar() {
             { auth.user &&
               <NavItem>
                 <NavLink>
-                  Logged in as {auth.user}
+                  {auth.user}
                 </NavLink>
               </NavItem>
             }
