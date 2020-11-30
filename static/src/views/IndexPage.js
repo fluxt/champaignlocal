@@ -56,11 +56,11 @@ function IndexPage() {
                 <Button
                   className="btn-round"
                   color="info"
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
+                  href="/QuestionPage"
+                  target="_blank"
                 >
-                  See Details
-                </Button>
+                Question and Answer Page
+              </Button>
               </Col>
             </Row>
             <br />

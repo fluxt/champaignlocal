@@ -89,6 +89,11 @@ function DefaultNavbar() {
                 <i className="nc-icon nc-shop" /> Stores
               </NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink to="/questions" tag={Link}>
+                <i className="nc-icon nc-zoom-split" /> Questions
+              </NavLink>
+            </NavItem>
             { !auth.user &&
               <NavItem>
                 <NavLink to={{ pathname: "/users/login", state: {from: location.pathname} }} tag={Link}>

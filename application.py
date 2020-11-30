@@ -1,11 +1,36 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect, url_for
+from flask_pymongo import pymongo
+from flask_cors import CORS, cross_origin
 import json
+import db
 
 import auth
 import stores
 
 application = Flask(__name__, static_folder='./static/build')
+cors = CORS(application)
+application.config['CORS_HEADERS'] = 'Content-Type'
+
+CONNECTION_STRING = 'mongodb+srv://user:SQLPassword@flask-mongodb.rlb9i.mongodb.net/Forum?retryWrites=true&w=majority'
+
+client = pymongo.MongoClient(CONNECTION_STRING)
+db = client.get_database('Forum')
+Discussion = pymongo.collection.Collection(db, 'Discussion')
+
+@application.route('/addquestion/<question>/')
+def addquestion(question):
+    Discussion.insert_one({"discussion_content": question.lower()})
+    return redirect(url_for('getquestions'))
+
+@application.route('/getquestions/')
+def getquestions():
+    questions_json = []
+    if Discussion.find({}):
+        for question in Discussion.find({}).sort("question"):
+            Discussion.append({"question": question['question'], "id": str(question['_id'])})
+        return json.dumps(questions_json)
+
 
 @application.route('/', defaults={'path': ''})
 @application.route('/<path:path>')
@@ -22,6 +47,11 @@ def not_found(e):
 @application.route('/api/test')
 def api_test():
     return {'ok': True}
+
+@application.route('/question')
+def test():
+    db.db.collection.insert_one({"name": "Henry"})
+    return "Connected to database!"
 
 @application.route('/api/users/login', methods=['POST'])
 def api_users_login():
