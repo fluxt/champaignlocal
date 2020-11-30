@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 import "assets/css/bootstrap.min.css";
 import "assets/scss/paper-kit.scss?v=1.2.0";
 
-import QuestionPage from '/views/QuestionPage.js';
-import Response from '/views/ResponsePage.js';
+import QuestionPage from 'views/QuestionPage.js';
+import Response from 'views/ResponsePage.js';
 
 class App extends Component {
     constructor(props) {

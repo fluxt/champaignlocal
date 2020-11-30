@@ -10,7 +10,6 @@ import IndexPage from "views/IndexPage.js";
 import LoginPage from "views/LoginPage";
 import RegisterPage from "views/RegisterPage.js";
 import StoresPage from "views/StoresPage.js";
-import QuestionPage from "views/QuestionPage.js"
 import App from "App.js";
 // others
 
