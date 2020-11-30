@@ -27,14 +27,6 @@ import avatar2 from "assets/img/faces/joe-gardner-2.jpg";
 import avatar3 from "assets/img/faces/erik-lucatero-2.jpg";
 
 function IndexPage() {
-  document.documentElement.classList.remove("nav-open");
-  React.useEffect(() => {
-    document.body.classList.add("profile-page");
-    return function cleanup() {
-      document.body.classList.remove("profile-page");
-    };
-  });
-
   return (
     <>
       <DefaultNavbar />

@@ -13,13 +13,6 @@ import StoresUpdate from "./stores/StoresUpdate.js";
 import StoresDelete from "./stores/StoresDelete.js";
 
 function StorePage() {
-  document.documentElement.classList.remove("nav-open");
-  React.useEffect(() => {
-    document.body.classList.add("stores-page");
-    return function cleanup() {
-      document.body.classList.remove("stores-page");
-    };
-  });
   return (
     <>
       <DefaultNavbar />

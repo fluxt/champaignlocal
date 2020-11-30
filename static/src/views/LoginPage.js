@@ -7,25 +7,16 @@ import { Button, Card, Form, Input, Container, Row, Col, UncontrolledPopover, Po
 import DefaultNavbar from "components/DefaultNavbar.js";
 
 // images
-import registerPageBackground from "assets/img/login-image.jpg";
+import loginPageBackground from "assets/img/login-image.jpg";
 
 import { useHistory, useLocation } from "react-router";
 import { useAuth } from "utils/auth.js";
 
 function LoginPage() {
-  document.documentElement.classList.remove("nav-open");
-  React.useEffect(() => {
-    document.body.classList.add("register-page");
-    return function cleanup() {
-      document.body.classList.remove("register-page");
-    };
-  });
-
   const history = useHistory();
   const auth = useAuth();
   const location = useLocation();
-
-  let { from } = location.state || { from: { pathname: "/" } };
+  const { from } = location.state || { from: { pathname: "/" } };
 
   async function handleLoginSubmit(event) {
     event.preventDefault();
@@ -50,7 +41,7 @@ function LoginPage() {
       <div
         className="page-header"
         style={{
-          backgroundImage: `url(${registerPageBackground})`,
+          backgroundImage: `url(${loginPageBackground})`,
         }}
       >
         <div className="filter" />

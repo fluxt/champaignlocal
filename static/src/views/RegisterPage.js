@@ -9,14 +9,37 @@ import DefaultNavbar from "components/DefaultNavbar.js";
 // images
 import registerPageBackground from "assets/img/login-image.jpg";
 
+import { useHistory, useLocation } from "react-router";
+import { useAuth } from "utils/auth.js";
+
 function RegisterPage() {
-  document.documentElement.classList.remove("nav-open");
-  React.useEffect(() => {
-    document.body.classList.add("register-page");
-    return function cleanup() {
-      document.body.classList.remove("register-page");
-    };
-  });
+  const history = useHistory();
+  const auth = useAuth();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: "/" } };
+
+  async function handleRegisterSubmit(event) {
+    event.preventDefault();
+
+    const target = event.target;
+    const displayname = target.elements.displayname.value;
+    const username = target.elements.username.value;
+    const password = target.elements.password.value;
+    const passwordconfirm = target.elements.passwordconfirm.value;
+
+    if (password !== passwordconfirm) return;
+
+    let success = false;
+    try {
+      success = await auth.register(displayname, username, password);
+    } catch (e) {
+      console.log(e);
+    }
+    if (success) {
+      history.replace(from);
+    }
+  }
+
   return (
     <>
       <DefaultNavbar />
@@ -32,15 +55,15 @@ function RegisterPage() {
             <Col className="ml-auto mr-auto" lg="4">
               <Card className="card-register ml-auto mr-auto">
                 <h3 className="title mx-auto">Welcome</h3>
-                <Form className="register-form" onSubmit={event=>event.preventDefault()}>
+                <Form className="register-form" onSubmit={handleRegisterSubmit}>
                   <label>Your Name</label>
-                  <Input placeholder="Name" type="text" />
+                  <Input placeholder="Name" type="text" name="displayname"/>
                   <label>Username</label>
-                  <Input placeholder="Username" type="text" />
+                  <Input placeholder="Username" type="text" name="username"/>
                   <label>Password</label>
-                  <Input placeholder="Password" type="password" />
+                  <Input placeholder="Password" type="password" name="password"/>
                   <label></label>
-                  <Input placeholder="Confirm Password" type="password" />
+                  <Input placeholder="Confirm Password" type="password" name="passwordconfirm"/>
                   <Button block className="btn-round" color="danger" id="submit">
                     Register
                   </Button>

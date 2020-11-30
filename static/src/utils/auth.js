@@ -12,6 +12,20 @@ export function ProvideAuth({ children }) {
   const [groups, setGroups] = React.useState([]);
   const [token, setToken] = React.useState(null);
 
+  const register = async (displayname, username, password) => {
+    const response = await fetch( "/api/users/register", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        displayname, username, password
+      })
+    });
+    const payload = await response.json();
+    return payload.ok;
+  }
+
   const login = async (username, password) => {
     const response = await fetch( "/api/users/login", {
       method: "POST",
@@ -41,6 +55,7 @@ export function ProvideAuth({ children }) {
     user,
     groups,
     token,
+    register,
     login,
     logout
   };
