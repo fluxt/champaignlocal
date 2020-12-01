@@ -33,6 +33,7 @@ ReactDOM.render(
           path="/users/register"
           render={(props) => <RegisterPage {...props} />}
         />
+        <Route
           path="/users/login"
           render={(props) => <LoginPage {...props} />}
         />
