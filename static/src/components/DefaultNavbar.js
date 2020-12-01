@@ -17,6 +17,7 @@ import {
   Nav,
   Container,
 } from "reactstrap";
+
 import { useAuth } from "utils/auth.js";
 
 function DefaultNavbar() {

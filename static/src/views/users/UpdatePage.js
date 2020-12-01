@@ -23,7 +23,13 @@ import PageHeaderXS from "components/Headers/PageHeaderXS.js"
 // images
 import storesPageBackground from "assets/img/fabio-mangione.jpg";
 
+// etc
+import { useAuth } from "utils/auth.js";
+
 function UpdatePage() {
+  const auth = useAuth();
+  // const history = useHistory();  
+
   async function handleUpdateSubmit(event) {
     event.preventDefault();
     const target = event.target;
@@ -75,7 +81,7 @@ function UpdatePage() {
                       <i className="nc-icon nc-single-02" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input value="Fluxt" type="text" name="username" readOnly/>
+                  <Input value={auth.user} type="text" name="username" readOnly/>
                 </InputGroup>
                 <label>Password</label>
                 <InputGroup>
