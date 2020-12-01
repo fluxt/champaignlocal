@@ -6,9 +6,8 @@ import { Container } from "reactstrap";
 // core components
 
 // images
-import indexPageBackground from "assets/img/daniel-olahh.jpg";
 
-function IndexPageHeader() {
+function PageHeader(props) {
   let pageHeader = React.createRef();
 
   React.useEffect(() => {
@@ -30,7 +29,7 @@ function IndexPageHeader() {
       <div
         style={{
           backgroundImage:
-            `url(${indexPageBackground})`,
+            `url(${props.backgroundImage})`,
         }}
         className="page-header"
         data-parallax={true}
@@ -50,4 +49,4 @@ function IndexPageHeader() {
   );
 }
 
-export default IndexPageHeader;
+export default PageHeader;

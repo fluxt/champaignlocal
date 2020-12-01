@@ -5,18 +5,21 @@ import React from "react";
 // core components
 import DefaultNavbar from "components/DefaultNavbar.js";
 
-import StoresPageHeader from "components/Headers/StoresPageHeader.js"
+import PageHeaderXS from "components/Headers/PageHeaderXS.js"
 
 import StoresSearch from "./stores/StoresSearch.js";
 import StoresCreate from "./stores/StoresCreate.js";
 import StoresUpdate from "./stores/StoresUpdate.js";
 import StoresDelete from "./stores/StoresDelete.js";
 
+// images
+import storesPageBackground from "assets/img/fabio-mangione.jpg";
+
 function StorePage() {
   return (
     <>
       <DefaultNavbar />
-      <StoresPageHeader />
+      <PageHeaderXS backgroundImage={storesPageBackground} />
       <StoresSearch />
       <StoresCreate />
       <StoresUpdate />

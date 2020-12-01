@@ -13,9 +13,11 @@ import {
 // core components
 import DefaultNavbar from "components/DefaultNavbar.js";
 import DefaultFooter from "components/DefaultFooter.js";
-import IndexPageHeader from "components/Headers/IndexPageHeader.js"
+import PageHeader from "components/Headers/PageHeader.js"
 
 // images
+import indexPageBackground from "assets/img/daniel-olahh.jpg";
+
 import avatar1 from "assets/img/faces/clem-onojeghuo-3.jpg";
 import avatar2 from "assets/img/faces/joe-gardner-2.jpg";
 import avatar3 from "assets/img/faces/erik-lucatero-2.jpg";
@@ -24,7 +26,7 @@ function IndexPage() {
   return (
     <>
       <DefaultNavbar />
-      <IndexPageHeader />
+      <PageHeader backgroundImage={indexPageBackground} />
       <div className="main">
         <div className="section text-center">
           <Container>

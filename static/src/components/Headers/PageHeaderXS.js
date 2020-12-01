@@ -5,9 +5,8 @@ import React from "react";
 // core components
 
 // images
-import storesPageBackground from "assets/img/fabio-mangione.jpg";
 
-function StoresPageHeader() {
+function PageHeaderXS(props) {
   let pageHeader = React.createRef();
 
   React.useEffect(() => {
@@ -29,7 +28,7 @@ function StoresPageHeader() {
       <div
         style={{
           backgroundImage:
-            `url(${storesPageBackground})`
+            `url(${props.backgroundImage})`
         }}
         className="page-header page-header-xs"
         data-parallax={true}
@@ -41,4 +40,4 @@ function StoresPageHeader() {
   );
 }
 
-export default StoresPageHeader;
+export default PageHeaderXS;
