@@ -8,9 +8,9 @@ export function useAuth() {
 }
 
 export function ProvideAuth({ children }) {
-  const [user, setUser] = React.useState(null);
-  const [groups, setGroups] = React.useState([]);
-  const [token, setToken] = React.useState(null);
+  const [user, setUser] = React.useState(localStorage.getItem('username'));
+  const [groups, setGroups] = React.useState(JSON.parse(localStorage.getItem('groups')));
+  const [token, setToken] = React.useState(localStorage.getItem('token'));
 
   const register = async (displayname, username, password) => {
     const response = await fetch( "/api/users/register", {
@@ -38,6 +38,9 @@ export function ProvideAuth({ children }) {
     });
     const payload = await response.json();
     if (payload.ok) {
+      localStorage.setItem('username', payload.username);
+      localStorage.setItem('groups', JSON.stringify(payload.groups));
+      localStorage.setItem('token', payload.token);
       setUser(payload.username);
       setGroups(payload.groups);
       setToken(payload.token);
@@ -46,6 +49,7 @@ export function ProvideAuth({ children }) {
   };
 
   const logout = async () => {
+    localStorage.clear();
     setUser(null);
     setGroups([]);
     setToken(null);
