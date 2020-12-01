@@ -7,10 +7,10 @@ import DefaultNavbar from "components/DefaultNavbar.js";
 
 import PageHeaderXS from "components/Headers/PageHeaderXS.js"
 
-import StoresSearch from "./stores/StoresSearch.js";
-import StoresCreate from "./stores/StoresCreate.js";
-import StoresUpdate from "./stores/StoresUpdate.js";
-import StoresDelete from "./stores/StoresDelete.js";
+import StoresSearch from "views/stores/StoresSearch.js";
+import StoresCreate from "views/stores/StoresCreate.js";
+import StoresUpdate from "views/stores/StoresUpdate.js";
+import StoresDelete from "views/stores/StoresDelete.js";
 
 // images
 import storesPageBackground from "assets/img/fabio-mangione.jpg";

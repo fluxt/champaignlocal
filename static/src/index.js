@@ -7,10 +7,16 @@ import "assets/css/bootstrap.min.css";
 import "assets/scss/paper-kit.scss?v=1.2.0";
 // pages
 import IndexPage from "views/IndexPage.js";
-import LoginPage from "views/LoginPage";
-import RegisterPage from "views/RegisterPage.js";
-import StoresPage from "views/StoresPage.js";
+
+import RegisterPage from "views/users/RegisterPage.js";
+import LoginPage from "views/users/LoginPage.js";
+import UpdatePage from "views/users/UpdatePage.js";
+import DeletePage from "views/users/DeletePage.js";
+
+import StoresPage from "views/stores/StoresPage.js";
+
 import App from "App.js";
+
 // others
 
 import { ProvideAuth, RouteWithAuth } from "utils/auth.js"
@@ -23,21 +29,28 @@ ReactDOM.render(
           exact path="/"
           render={(props) => <IndexPage {...props} />}
         />
+        <Route
+          path="/users/register"
+          render={(props) => <RegisterPage {...props} />}
+        />
+          path="/users/login"
+          render={(props) => <LoginPage {...props} />}
+        />
+        <RouteWithAuth
+          path="/users/update"
+          render={(props) => <UpdatePage {...props} />}
+        />
+        <RouteWithAuth
+          path="/users/delete"
+          render={(props) => <DeletePage {...props} />}
+        />
         <RouteWithAuth
           path="/stores"
           render={(props) => <StoresPage {...props} />}
         />
         <Route
-          path = "/addquestion"
+          path = "/questions"
           render={(props) => <App {...props} />}
-          />
-        <Route
-          path="/users/login"
-          render={(props) => <LoginPage {...props} />}
-        />
-        <Route
-          path="/users/register"
-          render={(props) => <RegisterPage {...props} />}
         />
         <Redirect to="/" />
       </Switch>

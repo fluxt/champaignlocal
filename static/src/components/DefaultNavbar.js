@@ -10,6 +10,10 @@ import {
   Navbar,
   NavItem,
   NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
   Nav,
   Container,
 } from "reactstrap";
@@ -102,18 +106,19 @@ function DefaultNavbar() {
               </NavItem>
             }
             { auth.user &&
-              <NavItem>
-                <NavLink to="/" tag={Link} onClick={()=>{auth.logout(); history.push("/");}}>
-                  <i className="nc-icon nc-key-25" /> Logout
-                </NavLink>
-              </NavItem>
-            }
-            { auth.user &&
-              <NavItem>
-                <NavLink>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
                   {auth.user}
-                </NavLink>
-              </NavItem>
+                </DropdownToggle>
+                <DropdownMenu className="dropdown-danger" right>
+                  <DropdownItem href="/users/update">
+                  <i className="nc-icon nc-settings-gear-65" /> Account Settings
+                  </DropdownItem>
+                  <DropdownItem onClick={()=>{auth.logout(); history.push("/");}}>
+                    <i className="nc-icon nc-key-25" /> Logout
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             }
           </Nav>
         </Collapse>
