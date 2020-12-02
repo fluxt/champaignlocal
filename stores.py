@@ -58,15 +58,19 @@ def all_stores():
     }, list(result)))
     return result
 
-def search_stores_by_name(keyword):
+def search_stores_by_name(keyword, minRating, takeoutArr):
     connection = get_connection()
     try:
         cursor = connection.cursor()
         query = """
-                SELECT * FROM Stores
-                WHERE Stores.Store_Name LIKE %s;
+                SELECT *
+                FROM Stores s
+                WHERE s.Store_Name LIKE %s
+                  AND s.Store_Ratings > (%s/10)
+                  AND s.Covid_Restrictions IN %s
                 """
-        cursor.execute(query, f"%{keyword}%")
+        cursor.execute(query, (f"%{keyword}%", int(float(minRating)*10), takeoutArr))
+        print(cursor._last_executed)
         result = cursor.fetchall()
     finally:
         connection.close()

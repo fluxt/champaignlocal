@@ -87,7 +87,11 @@ def api_stores_all():
 @application.route('/api/stores/name-search', methods=['GET'])
 def api_stores_name_search():
     payload = request.get_json()
-    searched_stores = stores.search_stores_by_name(request.args.get('keyword'))
+    searched_stores = stores.search_stores_by_name(
+        request.args.get('keyword'),
+        request.args.get('minRating'),
+        json.loads(request.args.get('takeout'))
+    )
     return {'ok': True, 'stores': searched_stores}
 
 @application.route('/api/stores/create', methods=['POST'])
