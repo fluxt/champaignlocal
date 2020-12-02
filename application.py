@@ -4,6 +4,7 @@ import json
 
 import auth
 import stores
+import users
 
 application = Flask(__name__, static_folder='./static/build')
 
@@ -23,12 +24,6 @@ def not_found(e):
 def api_test():
     return {'ok': True}
 
-@application.route('/api/users/register', methods=['POST'])
-def api_users_register():
-    payload = request.get_json()
-    print(payload)
-    return {'ok': True}
-
 @application.route('/api/users/login', methods=['POST'])
 def api_users_login():
     payload = request.get_json()
@@ -41,21 +36,42 @@ def api_users_login():
 @application.route('/api/users/validate')
 def api_users_validate():
     valid, username, groups, token = auth.validateJWT(request.headers.get('Authorization'))
-    if valid:
-        return {'ok': True, 'username': username, 'groups': groups, 'token': token}
-    else:
+    if not valid:
         return {'ok': False}, 401
+    return {'ok': True, 'username': username, 'groups': [], 'token': token}
+
+@application.route('/api/users/register', methods=['POST'])
+def api_users_register():
+    payload = request.get_json()
+    users.create_user(
+        payload.get("displayname"),
+        payload.get("username"),
+        payload.get("password")
+    )
+    return {'ok': True}
 
 @application.route('/api/users/update', methods=['POST'])
 def api_users_update():
+    # valid, username, groups, token = auth.validateJWT(request.headers.get('Authorization'))
+    # if not valid:
+    #     return {'ok': False}, 401
     payload = request.get_json()
-    print(payload)
+    users.update_user(
+        payload.get("displayname"),
+        payload.get("username"),
+        payload.get("password")
+    )
     return {'ok': True}
 
 @application.route('/api/users/delete', methods=['POST'])
 def api_users_delete():
+    # valid, username, groups, token = auth.validateJWT(request.headers.get('Authorization'))
+    # if not valid:
+    #     return {'ok': False}, 401
     payload = request.get_json()
-    print(payload)
+    users.delete_user(
+        payload.get('username')
+    )
     return {'ok': True}
 
 @application.route('/api/stores/one', methods=['GET'])
@@ -140,7 +156,7 @@ console.log(payload)
 token = payload.token
 response = await fetch( "/api/users/validate", {
     headers: {
-    'Authorization': token
+        'Authorization': token,
     },
 });
 payload = await response.json();

@@ -37,7 +37,7 @@ function DeletePage() {
     const password = target.elements.password.value;
 
     let response;
-    response = await fetch("/api/users/update", {
+    response = await fetch("/api/users/delete", {
       method: "POST",
       headers: {
         "Content-Type" : "application/json",

@@ -2,19 +2,20 @@ import os
 from authlib.jose import jwt
 from datetime import datetime, timedelta
 
+from dotenv import load_dotenv
+load_dotenv()
+
+import users
+
 def loginJWT(username, password):
     valid = True
     groups = []
     token = None
 
-    # simulate db query for now
-    if username == 'username1' and password == 'password1':
-        valid = True
-    elif username == 'username2' and password == 'password2':
-        valid = True
-        groups.append("admin")
-    else:
-        valid = False
+    valid = users.check_user(username, password)
+
+    if not valid:
+        return False, None, None, None
 
     iat = datetime.utcnow()
     exp = iat + timedelta(seconds=60*60)

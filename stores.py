@@ -2,6 +2,9 @@ import pymysql
 from pymysql.constants import CLIENT
 import os
 
+from dotenv import load_dotenv
+load_dotenv()
+
 def get_connection():
     connection = pymysql.connect(
         host=os.environ.get('SQL_HOST'),
