@@ -25,34 +25,39 @@ import storesPageBackground from "assets/img/fabio-mangione.jpg";
 
 // etc
 import { useAuth } from "utils/auth.js";
+import { useHistory } from "react-router";
 
 function UpdatePage() {
   const auth = useAuth();
-  // const history = useHistory();  
+  const history = useHistory();
 
   async function handleUpdateSubmit(event) {
     event.preventDefault();
     const target = event.target;
-    // const displayname = target.elements.displayname.value;
-    // const username = target.elements.username.value;
+    const displayname = target.elements.displayname.value;
+    const username = target.elements.username.value;
     const password = target.elements.password.value;
     const passwordconfirm = target.elements.passwordconfirm.value;
 
     if (password !== passwordconfirm) return;
 
-    // let response;
-    // response = await fetch ("api/users/update", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type" : "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     displayname, username, password
-    //   }),
-    // });
-    // response = await response.json();
-    // console.log("Update store");
-    // console.log(response);
+    let response;
+    response = await fetch("/api/users/update", {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json",
+      },
+      body: JSON.stringify({
+        displayname, username, password,
+        token: auth.token,
+      }),
+    });
+    response = await response.json();
+    console.log("Update User");
+    console.log(response);
+    if (response.ok) {
+      history.push("/");
+    }
   };
 
   return (

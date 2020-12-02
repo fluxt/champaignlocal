@@ -3,4 +3,5 @@ PyMySQL
 authlib
 python-dotenv
 flask_pymongo
+flask_cors
 dnspython

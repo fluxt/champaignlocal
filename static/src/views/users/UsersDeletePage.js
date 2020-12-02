@@ -20,28 +20,40 @@ import DefaultNavbar from "components/DefaultNavbar.js";
 
 import PageHeaderXS from "components/Headers/PageHeaderXS.js"
 
+import { useAuth } from "utils/auth.js";
+import { useHistory } from "react-router";
+
 // images
 import storesPageBackground from "assets/img/fabio-mangione.jpg";
 
 function DeletePage() {
+  const auth = useAuth();
+  const history = useHistory();
+
   async function handleDeleteSubmit(event) {
     event.preventDefault();
-    // const target = event.target;
-    // const username = target.elements.username.value;
-    // const password = target.elements.password.value;
-    // let response;
-    // response = await fetch ("api/users/delete", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type" : "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     username, password
-    //   }),
-    // });
-    // response = await response.json();
-    // console.log("Delete store");
-    // console.log(response);
+    const target = event.target;
+    const username = target.elements.username.value;
+    const password = target.elements.password.value;
+
+    let response;
+    response = await fetch("/api/users/update", {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json",
+      },
+      body: JSON.stringify({
+        username, password,
+        token: auth.token,
+      }),
+    });
+    response = await response.json();
+    console.log("Delete User");
+    console.log(response);
+    if (response.ok) {
+      auth.logout();
+      history.push("/");
+    }
   };
 
   return (

@@ -1,36 +1,11 @@
 import os
 from flask import Flask, request, jsonify, redirect, url_for
-from flask_pymongo import pymongo
-from flask_cors import CORS, cross_origin
 import json
-import db
 
 import auth
 import stores
 
 application = Flask(__name__, static_folder='./static/build')
-cors = CORS(application)
-application.config['CORS_HEADERS'] = 'Content-Type'
-
-CONNECTION_STRING = 'mongodb+srv://user:SQLPassword@flask-mongodb.rlb9i.mongodb.net/Forum?retryWrites=true&w=majority'
-
-client = pymongo.MongoClient(CONNECTION_STRING)
-db = client.get_database('Forum')
-Discussion = pymongo.collection.Collection(db, 'Discussion')
-
-@application.route('/addquestion/<question>/')
-def addquestion(question):
-    Discussion.insert_one({"discussion_content": question.lower()})
-    return redirect(url_for('getquestions'))
-
-@application.route('/getquestions/')
-def getquestions():
-    questions_json = []
-    if Discussion.find({}):
-        for question in Discussion.find({}).sort("question"):
-            Discussion.append({"question": question['question'], "id": str(question['_id'])})
-        return json.dumps(questions_json)
-
 
 @application.route('/', defaults={'path': ''})
 @application.route('/<path:path>')
@@ -48,10 +23,11 @@ def not_found(e):
 def api_test():
     return {'ok': True}
 
-@application.route('/question')
-def test():
-    db.db.collection.insert_one({"name": "Henry"})
-    return "Connected to database!"
+@application.route('/api/users/register', methods=['POST'])
+def api_users_register():
+    payload = request.get_json()
+    print(payload)
+    return {'ok': True}
 
 @application.route('/api/users/login', methods=['POST'])
 def api_users_login():
@@ -60,7 +36,7 @@ def api_users_login():
     if valid:
         return {'ok': True, 'username': username, 'groups': groups, 'token': token}
     else:
-        return {'ok': False}
+        return {'ok': False}, 401
 
 @application.route('/api/users/validate')
 def api_users_validate():
@@ -69,6 +45,18 @@ def api_users_validate():
         return {'ok': True, 'username': username, 'groups': groups, 'token': token}
     else:
         return {'ok': False}, 401
+
+@application.route('/api/users/update', methods=['POST'])
+def api_users_update():
+    payload = request.get_json()
+    print(payload)
+    return {'ok': True}
+
+@application.route('/api/users/delete', methods=['POST'])
+def api_users_delete():
+    payload = request.get_json()
+    print(payload)
+    return {'ok': True}
 
 @application.route('/api/stores/one', methods=['GET'])
 def api_stores_one():

@@ -8,14 +8,12 @@ import "assets/scss/paper-kit.scss?v=1.2.0";
 // pages
 import IndexPage from "views/IndexPage.js";
 
-import RegisterPage from "views/users/RegisterPage.js";
-import LoginPage from "views/users/LoginPage.js";
-import UpdatePage from "views/users/UpdatePage.js";
-import DeletePage from "views/users/DeletePage.js";
+import RegisterPage from "views/users/UsersRegisterPage.js";
+import LoginPage from "views/users/UsersLoginPage.js";
+import UpdatePage from "views/users/UsersUpdatePage.js";
+import DeletePage from "views/users/UsersDeletePage.js";
 
 import StoresPage from "views/stores/StoresPage.js";
-
-import App from "App.js";
 
 // others
 
@@ -48,10 +46,6 @@ ReactDOM.render(
         <RouteWithAuth
           path="/stores"
           render={(props) => <StoresPage {...props} />}
-        />
-        <Route
-          path = "/questions"
-          render={(props) => <App {...props} />}
         />
         <Redirect to="/" />
       </Switch>
