@@ -7,6 +7,22 @@ import stores
 import users
 
 application = Flask(__name__, static_folder='./static/build')
+from pymongo import MongoClient
+import json
+import auth
+import stores
+from flask_cors import CORS
+from routes import indexRoute, getRoute, itemRoute, updateRoute
+
+
+application = Flask(__name__, static_folder='./static/build')
+CORS(application)
+#register the blueprints 
+
+application.register_blueprint(indexRoute)
+application.register_blueprint(getRoute)
+application.register_blueprint(itemRoute)
+application.register_blueprint(updateRoute)
 
 @application.route('/', defaults={'path': ''})
 @application.route('/<path:path>')
@@ -135,7 +151,7 @@ def api_not_found(path):
     return {'ok': False, 'error': "api not found"}, 404
 
 if __name__ == "__main__":
-    application.debug = False
+    application.debug = True
     application.run()
 
 """

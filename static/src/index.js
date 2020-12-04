@@ -15,6 +15,9 @@ import DeletePage from "views/users/UsersDeletePage.js";
 
 import StoresPage from "views/stores/StoresPage.js";
 
+import QuestionPage from "views/QuestionsPage.js"
+import Main from "views/QuestionPageMain.js";
+import Item from "views/QuestionPageItem.js";
 // others
 
 import { ProvideAuth, RouteWithAuth } from "utils/auth.js"
@@ -30,6 +33,16 @@ ReactDOM.render(
         <Route
           path="/users/register"
           render={(props) => <RegisterPage {...props} />}
+          exact path = "/questions"
+          render = {(props) => <QuestionPage {...props} />}
+        />
+        <Route 
+          exact path = "/questions/getitems"
+          render = {(props) => <Main {...props} />}
+        />
+        <Route 
+        path = "/questions/item/:id"
+        render = {(props) => <Item {...props} /> }
         />
         <Route
           path="/users/login"
