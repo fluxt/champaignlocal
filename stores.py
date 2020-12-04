@@ -63,14 +63,20 @@ def search_stores_by_name(keyword, minRating, takeoutArr):
     try:
         cursor = connection.cursor()
         query = """
-                SELECT *
-                FROM Stores s
+                SELECT s.Store_ID,
+                       s.Store_Name,
+                       s.Store_Location,
+                       s.Opening_Hours,
+                       s.Store_Owner,
+                       s.Store_Ratings,
+                       s.Covid_Restrictions,
+                       u.User_DisplayName
+                FROM Stores s JOIN Users u ON s.Store_Owner = u.User_Username
                 WHERE s.Store_Name LIKE %s
                   AND s.Store_Ratings > (%s/10)
                   AND s.Covid_Restrictions IN %s
                 """
         cursor.execute(query, (f"%{keyword}%", int(float(minRating)*10), takeoutArr))
-        print(cursor._last_executed)
         result = cursor.fetchall()
     finally:
         connection.close()
@@ -80,7 +86,7 @@ def search_stores_by_name(keyword, minRating, takeoutArr):
         "name": store[1],
         "location": store[2],
         "hours": store[3],
-        "owner": store[4],
+        "owner": f"{store[7]} ({store[4]})",
         "ratings": store[5],
         "covid_restrictions": store[6]
     }, list(result)))
