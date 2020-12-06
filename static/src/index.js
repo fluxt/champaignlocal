@@ -56,7 +56,7 @@ ReactDOM.render(
           path="/users/delete"
           render={(props) => <DeletePage {...props} />}
         />
-        <RouteWithAuth
+        <Route
           path="/stores"
           render={(props) => <StoresPage {...props} />}
         />
