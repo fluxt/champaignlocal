@@ -1,4 +1,5 @@
 import React from "react";
+import { Progress } from "reactstrap";
 
 // reactstrap components
 import {
@@ -44,6 +45,31 @@ function IndexPage() {
               </Col>
             </Row>
           </Container>
+      <Container>
+        <Col className = "ml-auto mr-auto" md = "8">
+          <h2 className = "title">Average Best Prices for Delievery Overall</h2>
+        </Col>
+      <div className="progress-container progress-primary">
+        <span className="progress-badge">Uber Eats</span>
+        <Progress
+          max="10"
+          value="3"
+          barClassName="progress-bar-primary"
+        />
+      </div>
+      <div className="progress-container progress-danger">
+        <span className="progress-badge">Door Dash</span>
+        <Progress max="10" value="5" barClassName="progress-bar-danger" />
+      </div>
+      <div className="progress-container progress-warning">
+        <span className="progress-badge">Grub Hub</span>
+        <Progress
+          max="10"
+          value="5"
+          barClassName="progress-bar-warning"
+        />
+      </div>
+      </Container>
         </div>
         <div className="section section-dark text-center">
           <Container>

@@ -178,3 +178,33 @@ def delete_store(store_id):
         connection.commit()
     finally:
         connection.close()
+
+def find_delivery_options(store_id):
+    connection = get_connection()
+    try:
+        cursor = connection.cursor()
+        query = """
+                SELECT d.Store_Name, d.Delivery_Available, d.OptionsID
+                FROM Delivery as D Natural JOIN Stores as S
+                WHERE S.DeliveryAvailable = 'YES' AND S.Store_ID = %s
+                """
+        cursor.execute(query, store_id)
+        connection.commit()
+    finally: 
+        connection.close()
+
+def find_all_delivery_options():
+    connection = get_connection()
+    try:
+
+        query = """
+                SELECT *
+                FROM Delivery, Stores
+                WHERE Stores.DeliveryAvailable = 'YES'
+                """
+        cursor.execute(query)
+        connection.commit()
+    finally:
+        connection.close()
+
+
