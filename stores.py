@@ -99,10 +99,10 @@ def create_store(name, location, hours, owner, ratings, covid_restrictions):
         query = """
                 INSERT INTO Stores(
                     Store_Name, Store_Location, Opening_Hours,
-                    Store_Owner, Store_Ratings, Covid_Restrictions
-                ) VALUES (%s, %s, %s, %s, %s, %s);
+                    Store_Owner, Covid_Restrictions
+                ) VALUES (%s, %s, %s, %s, %s);
                 """
-        cursor.execute(query, (name, location, hours, owner, ratings, covid_restrictions))
+        cursor.execute(query, (name, location, hours, owner, covid_restrictions))
         result = cursor.lastrowid
         connection.commit()
     finally:
